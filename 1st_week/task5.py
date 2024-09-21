@@ -3,6 +3,7 @@ leetcode.com/problem-list/string/
 url: https://leetcode.com/problems/shortest-palindrome/description/
 """
 
+
 class Solution:
     def shortestPalindrome(self, s: str) -> str:
         rev = s[::-1]
