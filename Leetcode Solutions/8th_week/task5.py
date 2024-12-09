@@ -1,17 +1,22 @@
 """
 https://leetcode.com/problem-list/sliding-window/
-url: 
+url: https://leetcode.com/problems/get-equal-substrings-within-budget/description/
 """
 
 
 class Solution:
-    def longestEqualSubarray(self, nums: list[int], k: int) -> int:
-        mx = i = 0
-        d = {}
-        for j, x in enumerate(nums):
-            d[x] = d.get(x, 0) + 1
-            mx = max(mx, d[x])
-            if j - i + 1 - mx > k:
-                d[nums[i]] -= 1
-                i += 1
-        return mx
+    def equalSubstring(self, s: str, t: str, maxCost: int) -> int:
+        st = 0
+        curr = 0
+        mx_ln = 0
+
+        for end in range(len(s)):
+            curr += abs(ord(s[end]) - ord(t[end]))
+
+            while curr > maxCost:
+                curr -= abs(ord(s[st]) - ord(t[st]))
+                st += 1
+
+            mx_ln = max(mx_ln, end - st + 1)
+
+        return mx_ln

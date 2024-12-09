@@ -1,28 +1,19 @@
 """
 https://leetcode.com/problem-list/sliding-window/
-url: 
+url: https://leetcode.com/problems/grumpy-bookstore-owner/description/
 """
 
 
+from typing import List
+
+
 class Solution:
-    def longestBeautifulSubstring(self, word: str) -> int:
-        n = len(word)
-
-        i = cnt = ln = 1
-        mx = 0
-
-        while i < n:
-            if word[i - 1] == word[i]:
-                ln += 1
-            elif word[i - 1] < word[i]:
-                ln += 1
-                cnt += 1
-            else:
-                ln = 1
-                cnt = 1
-
-            if cnt == 5:
-                mx = max(mx, ln)
-
-            i += 1
-        return mx
+    def maxSatisfied(self, customers: List[int], grumpy: List[int], X: int) -> int:
+        win_of_make_satisfied = satisfied = max_make_satisfied = 0
+        for i, (c, g) in enumerate(zip(customers, grumpy)):
+            satisfied += (1 - g) * c
+            win_of_make_satisfied += g * c
+            if i >= X and grumpy[i - X] == 1:
+                win_of_make_satisfied -= customers[i - X]
+            max_make_satisfied = max(win_of_make_satisfied, max_make_satisfied)
+        return satisfied + max_make_satisfied
